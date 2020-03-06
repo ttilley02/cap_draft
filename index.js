@@ -72,7 +72,7 @@ function canIDoIt(tempNum,precipNum,windNum,waveNum,sightNum){
 
 //Updates Dom with confirmation of being able to do something
 function displayResults(responseJson) {
-       $('.js-results').html('');
+       //$('.js-results').html('');
        $(responseJson).ready(function () {
        $('.loading').addClass('hidden');
        
@@ -96,7 +96,7 @@ function displayResults(responseJson) {
     
     
     
-    $('.js-results').removeClass('hidden')
+    //$('.js-results').removeClass('hidden')
 
 }
 
@@ -159,7 +159,7 @@ function activityPages(doableStuff){
   <div class="activity-photo-big">
       PHOTO CORRESPONDING TO ACTIVITY
       </div>
- <br><h2>Here are some links you may find helpful if youre going outside to PLACEHOLDER</h2>
+    <br><h2>Here are some links you may find helpful if youre going outside to PLACEHOLDER</h2>
   <ul>
       <li>LINK</li>
       <li>LINK</li>
