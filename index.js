@@ -361,7 +361,6 @@ function suggestedActivities(doableStuff){
      
       
      for(let i = 0; i < doableStuff.length; i++){
-
       let activityCorrected = doableStuff[i].activity.replace("_", " ")
       $(".js-suggested").append(
       `<div class="${doableStuff[i].activity} activity">
@@ -386,11 +385,8 @@ function suggestedActivities(doableStuff){
 }
 
 function activityPages(doableStuff){
-
-  
-
   for(let i = 0; i < doableStuff.length; i++){
-  let activityCorrected = doableStuff[i].activity.replace("_", " ")
+    let activityCorrected = doableStuff[i].activity.replace("_", " ")
    $(`.${doableStuff[i].activity}.activity`).on('click', e=>{
 
     let pageHtml = 
@@ -403,9 +399,9 @@ function activityPages(doableStuff){
       
     <br>
     <ul>
-      <li class="wikipedia details"><span class='details'>Exerpt from Wiki:</span><br></li>
+      <li class="wikipedia details"><span class='details'>Excerpt from Wiki:</span><br></li>
       <br>
-      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${activityCorrected} near me  </a></li>
+      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${doableStuff[i].activity} near me  </a></li>
     </ul>
     <section class="buttonBlock">
     <input class="back" type="button" value="Back">
@@ -439,8 +435,6 @@ $('.container').on('click',".back", e=> {
     </section>
     `
 $('.container').html(qualifiedActivities)
-
-
      for(let i = 0; i < doableStuff.length; i++){
       let activityCorrected = doableStuff[i].activity.replace("_", " ")
       $(".js-suggested").append(
@@ -636,7 +630,7 @@ function zipcodeBasedCoords(zipcode) {
   fetch(url)
   .then(function(response){return response.json();})
   .then(function(response) {
-        console.log(response.lat);
+        console.log(responseJson);
     })
   .catch(function(error){console.log(error);});
 
