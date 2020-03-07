@@ -361,12 +361,14 @@ function suggestedActivities(doableStuff){
      
       
      for(let i = 0; i < doableStuff.length; i++){
+
+      let activityCorrected = doableStuff[i].activity.replace("_", " ")
       $(".js-suggested").append(
       `<div class="${doableStuff[i].activity} activity">
       
       <img src=${doableStuff[i].imageico} class="activity-photo">
       
-      <p>${doableStuff[i].activity}</p>
+      <p>${activityCorrected}</p>
       </div>
       
       `
@@ -384,14 +386,18 @@ function suggestedActivities(doableStuff){
 }
 
 function activityPages(doableStuff){
+
+  
+
   for(let i = 0; i < doableStuff.length; i++){
+  let activityCorrected = doableStuff[i].activity.replace("_", " ")
    $(`.${doableStuff[i].activity}.activity`).on('click', e=>{
 
     let pageHtml = 
     `
     
     <section class="box">
-    <h1>${doableStuff[i].activity}</h1>
+    <h1>${activityCorrected}</h1>
   
     <img src=${doableStuff[i].image} class="activity-photo-big" >
       
@@ -399,7 +405,7 @@ function activityPages(doableStuff){
     <ul>
       <li class="wikipedia details"><span class='details'>Exerpt from Wiki:</span><br></li>
       <br>
-      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${doableStuff[i].activity} near me  </a></li>
+      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${activityCorrected} near me  </a></li>
     </ul>
     <section class="buttonBlock">
     <input class="back" type="button" value="Back">
@@ -433,12 +439,15 @@ $('.container').on('click',".back", e=> {
     </section>
     `
 $('.container').html(qualifiedActivities)
+
+
      for(let i = 0; i < doableStuff.length; i++){
+      let activityCorrected = doableStuff[i].activity.replace("_", " ")
       $(".js-suggested").append(
        `
        <div class="${doableStuff[i].activity} activity">
        <img src=${doableStuff[i].imageico} class="activity-photo">
-       <p>${doableStuff[i].activity}</p>
+       <p>${activityCorrected}</p>
        </div>
       `
       )}
@@ -627,7 +636,7 @@ function zipcodeBasedCoords(zipcode) {
   fetch(url)
   .then(function(response){return response.json();})
   .then(function(response) {
-        console.log(responseJson);
+        console.log(response.lat);
     })
   .catch(function(error){console.log(error);});
 
