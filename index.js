@@ -614,7 +614,8 @@ function displayPosition(string){
 
 }
 
-function zipcodeSubmit() {
+//ADDED ZIP CODE FUNCTIONALITY PENDING
+/*function zipcodeSubmit() {
   $('#js-form').submit(function(event) {
     event.preventDefault();
     let zipInput = $('.zipcode-entry').val();
@@ -644,7 +645,7 @@ function coordsFormat(lat,lng){
 
 
 }
-
+*/
 
 
 
@@ -652,7 +653,7 @@ function allfunctions(){
 getPos();
 activitylisted();
 homeButton();
-zipcodeSubmit();
+//zipcodeSubmit();
 
 }
 
