@@ -441,7 +441,13 @@ $('.container').html(qualifiedActivities)
        <p>${doableStuff[i].activity}</p>
        </div>
       `
-      )}     
+      )}
+      $(".container").append(
+        `
+        <br>
+        <input class="home" type="button" value="Start Over">
+        `
+        )     
     activityPages(doableStuff);  
   })
   
@@ -455,8 +461,13 @@ function homeButton(){
     <h1>Weather for Activities</h1>
 
     <form id="js-form" class="search-form css-search">
-     
+           
     <input class="click" type="button" value="Current Location">
+    <br>
+   
+    <input class="zipcode-entry" type="text"  placeholder="zipcode">
+    <button type="submit"class="zipcode"> Submit</button>
+   
     <br>
     <input class="forecast" type="button" value=" Check out your forecast">
     <section class ="location">
