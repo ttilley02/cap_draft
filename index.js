@@ -401,7 +401,7 @@ function activityPages(doableStuff){
     <ul>
       <li class="wikipedia details"><span class='details'>Excerpt from Wiki:</span><br></li>
       <br>
-      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${doableStuff[i].activity} near me  </a></li>
+      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${activityCorrected} near me  </a></li>
     </ul>
     <section class="buttonBlock">
     <input class="back" type="button" value="Back">

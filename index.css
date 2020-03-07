@@ -111,6 +111,13 @@ input[type=text] {
 .duck{
 text-align: center;
 
+
+}
+
+
+a {
+    text-decoration: none;
+
 }
 .flex-container {
     max-width: 42rem;
