@@ -468,9 +468,6 @@ function homeButton(){
     <input class="click" type="button" value="Current Location">
     <br>
    
-    <input class="zipcode-entry" type="text"  placeholder="zipcode">
-    <button type="submit"class="zipcode"> Submit</button>
-   
     <br>
     <input class="forecast" type="button" value=" Check out your forecast">
     <section class ="location">
