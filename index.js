@@ -285,7 +285,7 @@ function canIDoIt(tempNum,precipNum,windNum,waveNum,sightNum){
 
   for(let i = 0 ; i < activityStorage.length; i++)
   {
-    if(tempNum >= activityStorage[i].apparentTemperatureLow && precipNum <= activityStorage[i].probabilityOfPrecipitation && windNum <= activityStorage[i].windSpeed && waveNum <= activityStorage[i].waveHeight && sightNum > activityStorage[i].visibility)
+    if(tempNum >= activityStorage[i].apparentTemperatureLow && precipNum <= activityStorage[i].probabilityOfPrecipitation && windNum <= activityStorage[i].windSpeed && waveNum <= activityStorage[i].waveHeight/* && sightNum > activityStorage[i].visibility*/)
     {
       newArray.push(activityStorage[i]);
       
@@ -310,14 +310,14 @@ function displayResults(responseJson) {
     let precip = responseJson.properties.probabilityOfPrecipitation.values[0].value;
     let wind = Math.round(responseJson.properties.windSpeed.values[0].value);
     let wave = Math.round(responseJson.properties.waveHeight.values[0].value);
-    let sight = Math.round(responseJson.properties.visibility.values[0].value);
+    /*let sight = Math.round(responseJson.properties.visibility.values[0].value);*/
     
-    let activitiesList = canIDoIt(apTemp,precip,wind,wave,sight);
-    doableActivities = canIDoIt(apTemp,precip,wind,wave,sight);
+    let activitiesList = canIDoIt(apTemp,precip,wind,wave/*,sight*/);
+    doableActivities = canIDoIt(apTemp,precip,wind,wave/*,sight*/);
     
     
     //send information to forecast page
-    forecast(apTemp,precip,wind,wave,sight);
+    forecast(apTemp,precip,wind,wave,/*sight*/);
     console.log(activitiesList)
     
 
@@ -334,7 +334,7 @@ function forecast(apTemp,precip,wind,wave,sight){
  <br>Precipitation Chance: ${precip}%
  <br>Wind Speed: ${wind} Mph
  <br>Wave Height: ${wave}m
- <br>Visibiility: ${sight}m</p>
+<br>
  <input type="button" class="activites" value="Suggested Activites">
  <br>
  <input class="home" type="button" value="Start Over">`
