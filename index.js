@@ -171,7 +171,7 @@ activityTense: 'go for a ride.'
   }
   ,
 {
-  activity:"Running",
+  activity:"Jogging",
   apparentTemperatureLow:20,
   probabilityOfPrecipitation:80,
   windSpeed:10,
@@ -216,7 +216,7 @@ activityTense: 'go for a ride.'
   }
   ,
 {
-  activity:"Football",
+  activity:"American_Football",
   apparentTemperatureLow:10,
   probabilityOfPrecipitation:80,
   windSpeed:10,
@@ -288,13 +288,13 @@ function canIDoIt(tempNum,precipNum,windNum,waveNum,sightNum){
     if(tempNum >= activityStorage[i].apparentTemperatureLow && precipNum <= activityStorage[i].probabilityOfPrecipitation && windNum <= activityStorage[i].windSpeed && waveNum <= activityStorage[i].waveHeight && sightNum > activityStorage[i].visibility)
     {
       newArray.push(activityStorage[i]);
-      qualifiedArray.push(activityStorage[i]);
+      
       
     }
   }
   
   
-  suggestedActivities(newArray,qualifiedArray);
+  suggestedActivities(newArray);
 }
 //console.log(weatherForecast);
 
@@ -306,7 +306,7 @@ function displayResults(responseJson) {
        
       
     })
-    let apTemp = Math.round((responseJson.properties.apparentTemperature.values[0].value * 1.8) + 32) ;
+    let apTemp = Math.round((responseJson.properties.maxTemperature.values[0].value * 1.8) + 32) ;
     let precip = responseJson.properties.probabilityOfPrecipitation.values[0].value;
     let wind = Math.round(responseJson.properties.windSpeed.values[0].value);
     let wave = Math.round(responseJson.properties.waveHeight.values[0].value);
@@ -330,12 +330,14 @@ function displayResults(responseJson) {
 
 function forecast(apTemp,precip,wind,wave,sight){
  let forecastHtml = `<h1>Forecast</h1>
- <p>Temperature: ${apTemp} F°
+ <p class='details'>Temperature: ${apTemp} F°
  <br>Precipitation Chance: ${precip}%
  <br>Wind Speed: ${wind} Mph
  <br>Wave Height: ${wave}m
  <br>Visibiility: ${sight}m</p>
- <input type="button" class="activites" value="Suggested Activites">`
+ <input type="button" class="activites" value="Suggested Activites">
+ <br>
+ <input class="home" type="button" value="Start Over">`
  
  $('.forecast').on('click', e => {
      console.log('forecast click')
@@ -343,15 +345,15 @@ function forecast(apTemp,precip,wind,wave,sight){
  })
 }
 
-function suggestedActivities(doableStuff,qualifiedArray){
-let qualifiedActivities = 
-`
-<h1>Look at what you can do</h1>
-<section class= "activitiesList">
+function suggestedActivities(doableStuff){
+  let qualifiedActivities = 
+  `
+  <h1>The Weather seems right for...</h1>
+  <section class= "activitiesList">
 
-<ul class="js-suggested">
-</section>
-`
+  <ul style="list-style: none;" class="js-suggested details">
+  </section>
+  `
 
  $('.container').on('click', '.activites', e => {
      console.log(doableStuff)
@@ -359,18 +361,24 @@ let qualifiedActivities =
      
       
      for(let i = 0; i < doableStuff.length; i++){
-    $(".js-suggested").append(
+      $(".js-suggested").append(
       `<div class="${doableStuff[i].activity} activity">
       
       <img src=${doableStuff[i].imageico} class="activity-photo">
       
       <p>${doableStuff[i].activity}</p>
-    </div>
+      </div>
+      
+      `
+     )
+      
+    }   
+    $(".container").append(
+      `
+      <br>
+      <input class="home" type="button" value="Start Over">
       `
       )
-
-      
-    }
       activityPages(doableStuff)
  })
 }
@@ -379,21 +387,30 @@ function activityPages(doableStuff){
   for(let i = 0; i < doableStuff.length; i++){
    $(`.${doableStuff[i].activity}.activity`).on('click', e=>{
 
-    let pageHtml = `<h1>${doableStuff[i].activity}</h1>
+    let pageHtml = 
+    `
+    
+    <section class="box">
+    <h1>${doableStuff[i].activity}</h1>
   
     <img src=${doableStuff[i].image} class="activity-photo-big" >
-      </div>
- <br><h2>Here are some links you may find helpful if youre going outside to ${doableStuff[i].activityTense}</h2>
-  <ul>
-      <li><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${doableStuff[i].activity} near me  </a></li>
-      <li><a href='https://en.wikipedia.org/wiki/${doableStuff[i].activity}'>More ${doableStuff[i].activity} info</a> </li>
-  </ul>
-  <input class="back" type="button" value="Back">
-  <input class="home" type="button" value="Home">`
+      
+    <br>
+    <ul>
+      <li class="wikipedia details"><span class='details'>Exerpt from Wiki:</span><br></li>
+      <br>
+      <li class="duck details"><a href='https://duckduckgo.com/?t=ffab&q=${doableStuff[i].activity}+near+me&ia=places'> ${doableStuff[i].activity} near me  </a></li>
+    </ul>
+    <section class="buttonBlock">
+    <input class="back" type="button" value="Back">
+    <input class="home" type="button" value="Start Over">
+    <section class="buttonBlock">
+    </section>
     
-    console.log(`${doableStuff[i].activity}`)
+    `
 
     $('.container').html(pageHtml)
+    wikiSearch(doableStuff[i].activity);
 
   })
    
@@ -403,41 +420,64 @@ function activityPages(doableStuff){
 
 function backButton(doableStuff){
 $('.container').on('click',".back", e=> {
+
+
+  console.log("clicked");
       
     let qualifiedActivities = 
     `
     <h1>Look at what you can do</h1>
     <section class= "activitiesList">
 
-    <ul class="js-suggested">
+    <ul style="list-style: none;" class="js-suggested">
     </section>
     `
 $('.container').html(qualifiedActivities)
-     
-      
      for(let i = 0; i < doableStuff.length; i++){
-    $(".js-suggested").append(
-      `<div class="${doableStuff[i].activity} activity">
-      
-      <img src=${doableStuff[i].imageico} class="activity-photo">
-      
-      <p>${doableStuff[i].activity}</p>
-    </div>
+      $(".js-suggested").append(
+       `
+       <div class="${doableStuff[i].activity} activity">
+       <img src=${doableStuff[i].imageico} class="activity-photo">
+       <p>${doableStuff[i].activity}</p>
+       </div>
       `
-      )
-
-      
-    }
-    /*console.log(qualifiedArray.length);  
-    for(let i = 0; i < qualifiedArray.length; i++){
-      $('.activitiesList').append(qualifiedArray[i].html)
-      }  */
-      activityPages(doableStuff)
-
-      
-    
+      )}     
+    activityPages(doableStuff);  
   })
+  
+
 }
+
+function homeButton(){
+  $('.container').on('click',".home", e=> {
+  $(".container").html(
+    `
+    <h1>Weather for Activities</h1>
+
+    <form id="js-form" class="search-form css-search">
+     
+    <input class="click" type="button" value="Current Location">
+    <br>
+    <input class="forecast" type="button" value=" Check out your forecast">
+    <section class ="location">
+    </form>
+    <main>
+        <section class="flex-container">
+           <section class="js-results results hidden">
+           
+            </section>
+        </section>
+    </main>
+    `
+  )
+  
+  getPos();
+  activitylisted();
+  forecast();
+        
+      
+    })
+  }
 
 
 function activitylisted(){
@@ -447,33 +487,15 @@ function activitylisted(){
  })
 }
 
-
-
-/*function active(activitiesList){
-
-    for(let i = 0 ; i < activitiesList.length; i++){
-      console.log(activityStorage[j].activity)
-      
-    wikiSearch(activitiesList[i])
-    $('.js-results').append(
-      `<div class="test"> ${activitiesList[i]} is possible!!! </div> 
-      <br>
-      <br>`)
-    
-    }
-}
-
-
-//    MediaWiki API 
+//MediaWiki API 
 
 function wikiSearch(searchterm){
 var url = "https://en.wikipedia.org/w/api.php"; 
 
 var params = {
-    action: "opensearch",
-    search: searchterm,
-    limit: "1",
-    namespace: "0",
+    action: "query",
+    list: "search",
+    srsearch: searchterm,
     format: "json"
 };
 
@@ -483,15 +505,16 @@ Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];}
 fetch(url)
     .then(function(response){return response.json();})
     .then(function(response) {
-      $('.js-results').append(`<a href=${response[3]} class = "js-wiki"> ${response[3]}</a>`)
+           $('.wikipedia').append(
+            `
+            ${response.query.search[0].snippet}.....
+            <a href='https://en.wikipedia.org/wiki/${searchterm}'>continue here</a>
+
+            `)
       })
     .catch(function(error){console.log(error);});
-        
-         
-           
-        
-
-}*/
+ 
+}
 
 
 //Uses the user input of thier coordinates to find the weather grid area to report on.
@@ -555,7 +578,6 @@ function success(geoLocationPos){
 //calls navigator and runs sucess function
 function getPos(){
  $('.click').on('click', e =>{
-  console.log('click')
   window.navigator.geolocation.getCurrentPosition(success)
   })
 };
@@ -578,6 +600,47 @@ function displayPosition(string){
 
 }
 
+function zipcodeSubmit() {
+  $('#js-form').submit(function(event) {
+    event.preventDefault();
+    let zipInput = $('.zipcode-entry').val();
+    $('.zipcode-entry').val('');
+
+    zipcodeBasedCoords(zipInput)
+  });
+}
+
+function zipcodeBasedCoords(zipcode) {
+  const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=37.42159&longitude=-122.0837&localityLanguage=en`
+  console.log(url)
+  fetch(url)
+  .then(function(response){return response.json();})
+  .then(function(response) {
+        console.log(responseJson);
+    })
+  .catch(function(error){console.log(error);});
+
+}
+
+
+function coordsFormat(lat,lng){
+  let newstring = lat+","+lng;
+   
+  getWeather(newstring);
+
+
+}
+
+
+
+
+function allfunctions(){
 getPos();
 activitylisted();
+homeButton();
+zipcodeSubmit();
+
+}
+
+$(allfunctions);
 

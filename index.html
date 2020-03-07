@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather for Activities</title>
-
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -16,8 +17,14 @@
 
         <form id="js-form" class="search-form css-search">
            
-            <input class="click" type="button" value="Use Current Location">
-            <input class="forecast" type="button" value="Forecast">
+            <input class="click" type="button" value="Current Location">
+            <br>
+           
+            <input class="zipcode-entry" type="text"  placeholder="zipcode">
+            <button type="submit"class="zipcode"> Submit</button>
+           
+            <br>
+            <input class="forecast" type="button" value=" Check out your forecast">
             <section class ="location">
         </form>
         <main>
@@ -31,6 +38,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
+    
 </body>
 
 </html>
